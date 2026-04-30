@@ -6,201 +6,319 @@
   <title>予約パンメニュー｜あしたのパン</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background-color: #F5E6C8;
-      background-image: radial-gradient(#D4B896 1px, transparent 1px);
-      background-size: 20px 20px;
-      font-family: 'Noto Sans JP', sans-serif;
-      min-height: 100vh;
-      padding: 40px 16px;
+      background-color:#F5E6C8;
+      background-image:radial-gradient(#D4B896 1px, transparent 1px);
+      background-size:20px 20px;
+      font-family:'Noto Sans JP',sans-serif;
+      min-height:100vh;
+      padding:32px 16px 120px;
     }
-
-    .wrapper { max-width: 680px; margin: 0 auto; }
+    .wrapper { max-width:620px; margin:0 auto; }
 
     /* ヘッダー */
     .header {
-      background: #FDF6ED;
-      border-radius: 16px;
-      border: 1.5px solid #D4B896;
-      padding: 32px 24px 24px;
-      text-align: center;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 16px rgba(44,26,14,0.08);
+      background:#FDF6ED; border-radius:16px;
+      border:1.5px solid #D4B896; padding:28px 24px 22px;
+      text-align:center; margin-bottom:20px;
+      box-shadow:0 4px 16px rgba(44,26,14,0.08);
     }
     .logo-circle {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      border: 2px solid #C89A5A;
-      background: #F5E6C8;
-      margin: 0 auto 16px;
-      display: flex; align-items: center; justify-content: center;
+      width:68px; height:68px; border-radius:50%;
+      border:2px solid #C89A5A; background:#F5E6C8;
+      margin:0 auto 14px;
+      display:flex; align-items:center; justify-content:center;
     }
-    .header .sub { font-size: 11px; letter-spacing: 3px; color: #8B6340; margin-bottom: 6px; }
-    .header h1 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 28px; font-weight: 700; color: #2C1A0E;
-      letter-spacing: 4px; margin-bottom: 6px;
-    }
-    .header .tagline { font-size: 12px; color: #8B6340; letter-spacing: 1px; }
-
-    /* 注文バナー */
-    .order-banner {
-      background: #2C1A0E;
-      border-radius: 10px;
-      padding: 16px 20px;
-      text-align: center;
-      margin-bottom: 24px;
-      color: #F5E6C8;
-      font-size: 13px;
-      letter-spacing: 1px;
-      line-height: 2;
-    }
-    .order-banner strong { color: #C89A5A; font-size: 15px; }
-    .order-banner a {
-      color: #C89A5A;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 15px;
-      display: inline-block;
-      margin-top: 4px;
-      border-bottom: 1px solid #C89A5A;
-      padding-bottom: 1px;
-    }
+    .header .sub { font-size:11px; letter-spacing:3px; color:#8B6340; margin-bottom:5px; }
+    .header h1 { font-family:'Noto Serif JP',serif; font-size:26px; font-weight:700; color:#2C1A0E; letter-spacing:4px; margin-bottom:5px; }
+    .header .tagline { font-size:12px; color:#8B6340; }
 
     /* セクションタイトル */
-    .section-title {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-    }
-    .section-title::before, .section-title::after {
-      content: ''; flex: 1; height: 1px; background: #C89A5A;
-    }
-    .section-title span { font-size: 11px; letter-spacing: 3px; color: #8B6340; white-space: nowrap; }
+    .section-title { display:flex; align-items:center; gap:10px; margin:20px 0 12px; }
+    .section-title::before,.section-title::after { content:''; flex:1; height:1px; background:#C89A5A; }
+    .section-title span { font-size:11px; letter-spacing:3px; color:#8B6340; white-space:nowrap; }
 
     /* メニューカード */
     .menu-card {
-      background: #FDF6ED;
-      border-radius: 12px;
-      border: 1px solid #D4B896;
-      margin-bottom: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(44,26,14,0.06);
-      display: flex; align-items: stretch;
+      background:#FDF6ED; border-radius:12px;
+      border:1px solid #D4B896; margin-bottom:10px;
+      overflow:hidden; box-shadow:0 2px 8px rgba(44,26,14,0.06);
+      display:flex; align-items:stretch;
     }
-    .menu-card .accent-bar { width: 5px; background: #C89A5A; flex-shrink: 0; }
-    .menu-card .content {
-      flex: 1; padding: 16px 18px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .menu-card .name {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 17px; font-weight: 700; color: #2C1A0E; margin-bottom: 4px;
-    }
-    .menu-card .detail { font-size: 12px; color: #8B6340; }
-    .menu-card .price-box { text-align: right; flex-shrink: 0; }
-    .menu-card .price {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 22px; font-weight: 700; color: #5A3D20;
-    }
-    .menu-card .price-sub { font-size: 11px; color: #8B6340; }
+    .accent-bar { width:5px; background:#C89A5A; flex-shrink:0; }
+    .card-content { flex:1; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .menu-name { font-family:'Noto Serif JP',serif; font-size:16px; font-weight:700; color:#2C1A0E; margin-bottom:3px; }
+    .menu-detail { font-size:11px; color:#8B6340; }
+    .price-area { text-align:right; flex-shrink:0; }
+    .unit-price { font-family:'Noto Serif JP',serif; font-size:18px; font-weight:700; color:#5A3D20; }
+    .price-sub { font-size:10px; color:#8B6340; }
 
-    /* フッター */
-    .footer {
-      background: #FDF6ED;
-      border-radius: 12px;
-      border: 1px solid #D4B896;
-      padding: 24px;
-      margin-top: 28px;
-      text-align: center;
+    /* カウンター */
+    .counter { display:flex; align-items:center; gap:8px; margin-top:10px; justify-content:flex-end; }
+    .counter button {
+      width:32px; height:32px; border-radius:50%;
+      border:1.5px solid #C89A5A; background:#FDF6ED;
+      color:#8B6340; font-size:18px; font-weight:700;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all 0.15s;
     }
-    .footer .shop-name {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 16px; color: #2C1A0E; font-weight: 700;
-      margin-bottom: 6px; letter-spacing: 2px;
+    .counter button:active { background:#F5E6C8; }
+    .counter .qty {
+      min-width:28px; text-align:center;
+      font-size:18px; font-weight:700; color:#2C1A0E;
     }
-    .footer .school { font-size: 11px; color: #8B6340; margin-bottom: 14px; }
-    .footer .insta-link {
-      display: inline-block;
-      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      color: white;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 10px 24px;
-      border-radius: 50px;
-      letter-spacing: 1px;
+    .subtotal { font-size:11px; color:#8B6340; margin-top:4px; text-align:right; min-height:16px; }
+
+    /* 注文フォーム */
+    .form-card {
+      background:#FDF6ED; border-radius:12px;
+      border:1px solid #D4B896; padding:20px;
+      margin-top:8px; box-shadow:0 2px 8px rgba(44,26,14,0.06);
     }
+    .form-card label { display:block; font-size:11px; color:#8B6340; letter-spacing:1px; margin-bottom:5px; margin-top:14px; }
+    .form-card label:first-child { margin-top:0; }
+    .form-card input {
+      width:100%; padding:10px 12px;
+      border:1px solid #D4B896; border-radius:8px;
+      background:#FFFDF9; font-size:14px; color:#2C1A0E;
+      font-family:'Noto Sans JP',sans-serif;
+      outline:none;
+    }
+    .form-card input:focus { border-color:#C89A5A; }
+
+    /* 合計バー */
+    .total-bar {
+      background:#2C1A0E; border-radius:10px;
+      padding:14px 20px; margin-top:16px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .total-label { color:#C89A5A; font-size:12px; letter-spacing:1px; }
+    .total-amount { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:#FDF6ED; }
+
+    /* 送信ボタン */
+    .send-btn {
+      width:100%; margin-top:14px;
+      padding:16px;
+      background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color:white; border:none; border-radius:50px;
+      font-size:15px; font-weight:700;
+      font-family:'Noto Sans JP',sans-serif;
+      cursor:pointer; letter-spacing:1px;
+      box-shadow:0 4px 12px rgba(220,39,67,0.3);
+      transition:opacity 0.2s;
+    }
+    .send-btn:active { opacity:0.85; }
+    .send-btn:disabled { background:#ccc; box-shadow:none; cursor:not-allowed; }
+
+    /* モーダル */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(44,26,14,0.6); z-index:100;
+      align-items:center; justify-content:center; padding:20px;
+    }
+    .modal-overlay.show { display:flex; }
+    .modal {
+      background:#FDF6ED; border-radius:16px;
+      border:1.5px solid #D4B896; padding:28px 24px;
+      max-width:440px; width:100%;
+      box-shadow:0 8px 32px rgba(44,26,14,0.15);
+    }
+    .modal h2 { font-family:'Noto Serif JP',serif; font-size:18px; color:#2C1A0E; margin-bottom:16px; text-align:center; }
+    .modal .order-text {
+      background:#F5E6C8; border-radius:8px;
+      border:1px solid #D4B896; padding:14px;
+      font-size:13px; color:#2C1A0E; line-height:1.8;
+      white-space:pre-wrap; margin-bottom:16px;
+    }
+    .modal .copy-btn {
+      width:100%; padding:12px;
+      background:#2C1A0E; color:#F5E6C8;
+      border:none; border-radius:8px;
+      font-size:14px; font-weight:700;
+      font-family:'Noto Sans JP',sans-serif;
+      cursor:pointer; margin-bottom:10px; letter-spacing:1px;
+    }
+    .modal .insta-btn {
+      width:100%; padding:12px;
+      background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color:white; border:none; border-radius:8px;
+      font-size:14px; font-weight:700;
+      font-family:'Noto Sans JP',sans-serif;
+      cursor:pointer; margin-bottom:10px; letter-spacing:1px;
+    }
+    .modal .close-btn {
+      width:100%; padding:10px;
+      background:transparent; color:#8B6340;
+      border:1px solid #D4B896; border-radius:8px;
+      font-size:13px; font-family:'Noto Sans JP',sans-serif;
+      cursor:pointer;
+    }
+    .copied-msg { text-align:center; color:#C89A5A; font-size:12px; margin-bottom:8px; display:none; }
   </style>
 </head>
 <body>
-  <div class="wrapper">
+<div class="wrapper">
 
-    <!-- ヘッダー -->
-    <div class="header">
-      <div class="logo-circle">
-        <svg width="44" height="36" viewBox="0 0 44 36" fill="none">
-          <path d="M2 32 L2 18 Q2 12 5 10 Q7 5 10 7 Q12 2 15 4 Q17 0 20 2 Q22 -1 24 2 Q27 0 29 4 Q32 2 35 7 Q38 5 40 10 Q43 12 43 18 L43 32 Z"
-            fill="#E8C47A" stroke="#C89A5A" stroke-width="1.2"/>
-          <rect x="2" y="32" width="41" height="4" fill="#C89A5A"/>
-          <line x1="10" y1="8" x2="10" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
-          <line x1="20" y1="3" x2="20" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
-          <line x1="29" y1="3" x2="29" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
-          <line x1="38" y1="8" x2="38" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
-        </svg>
-      </div>
-      <p class="sub">YOYAKU PAN MENU</p>
-      <h1>予約パンメニュー</h1>
-      <p class="tagline">あしたのパン　― 東近江市 ―</p>
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="logo-circle">
+      <svg width="42" height="34" viewBox="0 0 44 36" fill="none">
+        <path d="M2 32 L2 18 Q2 12 5 10 Q7 5 10 7 Q12 2 15 4 Q17 0 20 2 Q22 -1 24 2 Q27 0 29 4 Q32 2 35 7 Q38 5 40 10 Q43 12 43 18 L43 32 Z" fill="#E8C47A" stroke="#C89A5A" stroke-width="1.2"/>
+        <rect x="2" y="32" width="41" height="4" fill="#C89A5A"/>
+        <line x1="10" y1="8" x2="10" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+        <line x1="20" y1="3" x2="20" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+        <line x1="29" y1="3" x2="29" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+        <line x1="38" y1="8" x2="38" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+      </svg>
     </div>
-
-    <!-- 注文バナー -->
-    <div class="order-banner">
-      ご注文・お問い合わせは Instagram から<br>
-      <a href="https://www.instagram.com/asita_no_pan/" target="_blank">@asita_no_pan</a>
-    </div>
-
-    <!-- メニュー -->
-    <div class="section-title"><span>MENU</span></div>
-
-    <div class="menu-card">
-      <div class="accent-bar"></div>
-      <div class="content">
-        <div class="info">
-          <div class="name">山形食パン</div>
-          <div class="detail">1斤</div>
-        </div>
-        <div class="price-box">
-          <div class="price">¥800</div>
-          <div class="price-sub">税込</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card">
-      <div class="accent-bar"></div>
-      <div class="content">
-        <div class="info">
-          <div class="name">メロンパン</div>
-          <div class="detail">5個〜</div>
-        </div>
-        <div class="price-box">
-          <div class="price">¥1,000〜</div>
-          <div class="price-sub">税込</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- フッター -->
-    <div class="footer">
-      <p class="shop-name">あしたのパン</p>
-      <p class="school">ジャパンベーキングスクール　師範　荒居洋子</p>
-      <a class="insta-link" href="https://www.instagram.com/asita_no_pan/" target="_blank">
-        Instagram でご注文 @asita_no_pan
-      </a>
-    </div>
-
+    <p class="sub">YOYAKU PAN MENU</p>
+    <h1>予約パンメニュー</h1>
+    <p class="tagline">あしたのパン　― 東近江市 ―</p>
   </div>
+
+  <!-- メニュー -->
+  <div class="section-title"><span>MENU</span></div>
+
+  <div class="menu-card" id="card-0">
+    <div class="accent-bar"></div>
+    <div class="card-content">
+      <div>
+        <div class="menu-name">山形食パン</div>
+        <div class="menu-detail">1斤</div>
+        <div class="counter">
+          <button onclick="change(0,-1)">－</button>
+          <div class="qty" id="qty-0">0</div>
+          <button onclick="change(0,1)">＋</button>
+        </div>
+        <div class="subtotal" id="sub-0"></div>
+      </div>
+      <div class="price-area">
+        <div class="unit-price">¥800</div>
+        <div class="price-sub">税込 / 1斤</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-card" id="card-1">
+    <div class="accent-bar"></div>
+    <div class="card-content">
+      <div>
+        <div class="menu-name">メロンパン</div>
+        <div class="menu-detail">5個〜</div>
+        <div class="counter">
+          <button onclick="change(1,-1)">－</button>
+          <div class="qty" id="qty-1">0</div>
+          <button onclick="change(1,1)">＋</button>
+        </div>
+        <div class="subtotal" id="sub-1"></div>
+      </div>
+      <div class="price-area">
+        <div class="unit-price">¥1,000〜</div>
+        <div class="price-sub">税込 / 5個</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注文者フォーム -->
+  <div class="section-title"><span>ORDER</span></div>
+  <div class="form-card">
+    <label>お名前</label>
+    <input type="text" id="name" placeholder="例：山田 花子">
+    <label>電話番号</label>
+    <input type="tel" id="phone" placeholder="例：090-1234-5678">
+    <label>ご希望の受取日</label>
+    <input type="date" id="date">
+
+    <!-- 合計 -->
+    <div class="total-bar">
+      <span class="total-label">合計金額</span>
+      <span class="total-amount" id="total">¥0</span>
+    </div>
+
+    <button class="send-btn" onclick="openModal()">
+      📩　注文内容をインスタDMで送る
+    </button>
+  </div>
+
+</div>
+
+<!-- モーダル -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>注文内容の確認</h2>
+    <div class="order-text" id="order-text"></div>
+    <p class="copied-msg" id="copied-msg">✅ コピーしました！</p>
+    <button class="copy-btn" onclick="copyText()">📋　テキストをコピー</button>
+    <button class="insta-btn" onclick="openInsta()">📸　インスタを開いてDMする</button>
+    <button class="close-btn" onclick="closeModal()">戻る</button>
+  </div>
+</div>
+
+<script>
+  const items = [
+    { name: '山形食パン', unit: '1斤', price: 800 },
+    { name: 'メロンパン', unit: '5個', price: 1000 },
+  ];
+  const qtys = [0, 0];
+
+  function change(idx, delta) {
+    qtys[idx] = Math.max(0, qtys[idx] + delta);
+    document.getElementById('qty-' + idx).textContent = qtys[idx];
+    const sub = qtys[idx] > 0 ? '小計：¥' + (qtys[idx] * items[idx].price).toLocaleString() : '';
+    document.getElementById('sub-' + idx).textContent = sub;
+    updateTotal();
+  }
+
+  function updateTotal() {
+    const total = qtys.reduce((sum, q, i) => sum + q * items[i].price, 0);
+    document.getElementById('total').textContent = '¥' + total.toLocaleString();
+  }
+
+  function buildOrderText() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date = document.getElementById('date').value;
+    const dateStr = date ? new Date(date).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric' }) : '未定';
+    const total = qtys.reduce((sum, q, i) => sum + q * items[i].price, 0);
+
+    let lines = ['【予約注文】あしたのパン', ''];
+    items.forEach((item, i) => {
+      if (qtys[i] > 0) lines.push(`・${item.name}（${item.unit}）× ${qtys[i]}　¥${(qtys[i]*item.price).toLocaleString()}`);
+    });
+    lines.push('');
+    lines.push(`合計：¥${total.toLocaleString()}`);
+    lines.push('');
+    lines.push(`お名前：${name || '未入力'}`);
+    lines.push(`電話番号：${phone || '未入力'}`);
+    lines.push(`受取希望日：${dateStr}`);
+    lines.push('');
+    lines.push('よろしくお願いいたします🍞');
+    return lines.join('\n');
+  }
+
+  function openModal() {
+    const total = qtys.reduce((sum, q, i) => sum + q * items[i].price, 0);
+    if (total === 0) { alert('商品を選んでください'); return; }
+    document.getElementById('order-text').textContent = buildOrderText();
+    document.getElementById('modal').classList.add('show');
+    document.getElementById('copied-msg').style.display = 'none';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  function copyText() {
+    const text = buildOrderText();
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById('copied-msg').style.display = 'block';
+    });
+  }
+
+  function openInsta() {
+    window.open('https://www.instagram.com/asita_no_pan/', '_blank');
+  }
+</script>
 </body>
 </html>
