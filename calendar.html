@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レッスンカレンダー｜あしたのパン</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background-color:#F5E6C8;
+      background-image:radial-gradient(#D4B896 1px, transparent 1px);
+      background-size:20px 20px;
+      font-family:'Noto Sans JP',sans-serif;
+      min-height:100vh;
+      padding:32px 16px;
+    }
+    .wrapper { max-width:680px; margin:0 auto; }
+
+    /* ヘッダー */
+    .header {
+      background:#FDF6ED; border-radius:16px;
+      border:1.5px solid #D4B896; padding:24px;
+      text-align:center; margin-bottom:20px;
+      box-shadow:0 4px 16px rgba(44,26,14,0.08);
+    }
+    .header .sub { font-size:11px; letter-spacing:3px; color:#8B6340; margin-bottom:5px; }
+    .header h1 { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:#2C1A0E; letter-spacing:3px; margin-bottom:5px; }
+    .header .tagline { font-size:12px; color:#8B6340; }
+
+    /* 月ナビ */
+    .month-nav {
+      display:flex; align-items:center; justify-content:space-between;
+      background:#FDF6ED; border-radius:12px;
+      border:1px solid #D4B896; padding:14px 20px;
+      margin-bottom:16px;
+    }
+    .month-nav button {
+      background:none; border:1.5px solid #C89A5A;
+      border-radius:50%; width:36px; height:36px;
+      color:#8B6340; font-size:16px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .month-nav button:active { background:#F5E6C8; }
+    .month-title { font-family:'Noto Serif JP',serif; font-size:20px; font-weight:700; color:#2C1A0E; }
+
+    /* カレンダー */
+    .calendar {
+      background:#FDF6ED; border-radius:12px;
+      border:1px solid #D4B896; overflow:hidden;
+      box-shadow:0 2px 8px rgba(44,26,14,0.06);
+      margin-bottom:20px;
+    }
+    .cal-header {
+      display:grid; grid-template-columns:repeat(7,1fr);
+      background:#2C1A0E;
+    }
+    .cal-header div {
+      text-align:center; padding:10px 4px;
+      font-size:11px; letter-spacing:1px; color:#C89A5A;
+    }
+    .cal-header div:first-child { color:#e88; }
+    .cal-header div:last-child { color:#88c; }
+
+    .cal-body {
+      display:grid; grid-template-columns:repeat(7,1fr);
+    }
+    .cal-cell {
+      min-height:72px; border-right:1px solid #EEE5D5;
+      border-bottom:1px solid #EEE5D5; padding:6px 4px 4px;
+      position:relative; cursor:default;
+    }
+    .cal-cell:nth-child(7n) { border-right:none; }
+    .cal-cell.empty { background:#FAF3E8; }
+    .cal-cell.sunday .day-num { color:#c55; }
+    .cal-cell.saturday .day-num { color:#55c; }
+    .cal-cell.today { background:#FFF8EC; }
+    .cal-cell.today .day-num {
+      background:#C89A5A; color:white;
+      border-radius:50%; width:22px; height:22px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px;
+    }
+    .day-num { font-size:12px; font-weight:500; color:#2C1A0E; margin-bottom:4px; }
+
+    /* 予約バッジ */
+    .badge {
+      border-radius:4px; padding:2px 5px;
+      font-size:9px; font-weight:700;
+      margin-top:2px; line-height:1.4;
+      display:block;
+    }
+    .badge.open { background:#E8F5E9; color:#2E7D32; border:1px solid #A5D6A7; }
+    .badge.full { background:#FFEBEE; color:#C62828; border:1px solid #EF9A9A; }
+    .badge.name { background:#FFF8E1; color:#5A3D20; border:1px solid #FFE082; font-size:8px; }
+
+    /* 凡例 */
+    .legend {
+      background:#FDF6ED; border-radius:12px;
+      border:1px solid #D4B896; padding:16px 20px;
+      display:flex; gap:16px; flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#5A3D20; }
+    .legend-dot { width:12px; height:12px; border-radius:3px; }
+
+    /* お問い合わせ */
+    .contact {
+      background:#2C1A0E; border-radius:12px;
+      padding:18px 20px; text-align:center; color:#F5E6C8;
+    }
+    .contact p { font-size:12px; line-height:2; }
+    .contact a {
+      color:#C89A5A; font-weight:700; font-size:14px;
+      text-decoration:none; border-bottom:1px solid #C89A5A;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <p class="sub">LESSON CALENDAR</p>
+    <h1>レッスンカレンダー</h1>
+    <p class="tagline">あしたのパン　パン教室</p>
+  </div>
+
+  <div class="month-nav">
+    <button onclick="changeMonth(-1)">◀</button>
+    <div class="month-title" id="month-title"></div>
+    <button onclick="changeMonth(1)">▶</button>
+  </div>
+
+  <div class="calendar">
+    <div class="cal-header">
+      <div>日</div><div>月</div><div>火</div><div>水</div>
+      <div>木</div><div>金</div><div>土</div>
+    </div>
+    <div class="cal-body" id="cal-body"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#E8F5E9;border:1px solid #A5D6A7;"></div>
+      空きあり
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#FFEBEE;border:1px solid #EF9A9A;"></div>
+      満席
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#FFF8E1;border:1px solid #FFE082;"></div>
+      予約者名
+    </div>
+  </div>
+
+  <div class="contact">
+    <p>ご予約・お問い合わせは Instagram から<br>
+    <a href="https://www.instagram.com/asita_no_pan/" target="_blank">@asita_no_pan</a></p>
+  </div>
+
+</div>
+
+<script>
+  let currentYear, currentMonth;
+
+  // 予約データを読み込む
+  async function loadData() {
+    try {
+      const res = await fetch('reservations.json?t=' + Date.now());
+      return await res.json();
+    } catch(e) {
+      return { lessons: [] };
+    }
+  }
+
+  function changeMonth(delta) {
+    currentMonth += delta;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  }
+
+  async function renderCalendar() {
+    const data = await loadData();
+    const lessons = data.lessons || [];
+
+    const title = `${currentYear}年 ${currentMonth + 1}月`;
+    document.getElementById('month-title').textContent = title;
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const today = new Date();
+
+    const body = document.getElementById('cal-body');
+    body.innerHTML = '';
+
+    // 空白セル
+    for (let i = 0; i < firstDay; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell empty';
+      body.appendChild(cell);
+    }
+
+    // 日付セル
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const dow = (firstDay + d - 1) % 7;
+      let cls = 'cal-cell';
+      if (dow === 0) cls += ' sunday';
+      if (dow === 6) cls += ' saturday';
+      if (d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+        cls += ' today';
+      }
+      cell.className = cls;
+
+      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+      // 日付番号
+      const dayNum = document.createElement('div');
+      dayNum.className = 'day-num';
+      dayNum.textContent = d;
+      cell.appendChild(dayNum);
+
+      // その日のレッスン情報
+      const lesson = lessons.find(l => l.date === dateStr);
+      if (lesson) {
+        const badge = document.createElement('span');
+        if (lesson.status === 'open') {
+          badge.className = 'badge open';
+          badge.textContent = '◎ 空きあり';
+        } else {
+          badge.className = 'badge full';
+          badge.textContent = '× 満席';
+        }
+        cell.appendChild(badge);
+
+        // 予約者名
+        if (lesson.names && lesson.names.length > 0) {
+          lesson.names.forEach(name => {
+            const nb = document.createElement('span');
+            nb.className = 'badge name';
+            nb.textContent = name;
+            cell.appendChild(nb);
+          });
+        }
+      }
+
+      body.appendChild(cell);
+    }
+  }
+
+  // 初期化
+  const now = new Date();
+  currentYear = now.getFullYear();
+  currentMonth = now.getMonth();
+  renderCalendar();
+</script>
+</body>
+</html>
