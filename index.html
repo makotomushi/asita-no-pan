@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約パンメニュー｜あしたのパン</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #F5E6C8;
+      background-image: radial-gradient(#D4B896 1px, transparent 1px);
+      background-size: 20px 20px;
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      padding: 40px 16px;
+    }
+
+    .wrapper { max-width: 680px; margin: 0 auto; }
+
+    /* ヘッダー */
+    .header {
+      background: #FDF6ED;
+      border-radius: 16px;
+      border: 1.5px solid #D4B896;
+      padding: 32px 24px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(44,26,14,0.08);
+    }
+    .logo-circle {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 2px solid #C89A5A;
+      background: #F5E6C8;
+      margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header .sub { font-size: 11px; letter-spacing: 3px; color: #8B6340; margin-bottom: 6px; }
+    .header h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 28px; font-weight: 700; color: #2C1A0E;
+      letter-spacing: 4px; margin-bottom: 6px;
+    }
+    .header .tagline { font-size: 12px; color: #8B6340; letter-spacing: 1px; }
+
+    /* 注文バナー */
+    .order-banner {
+      background: #2C1A0E;
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: #F5E6C8;
+      font-size: 13px;
+      letter-spacing: 1px;
+      line-height: 2;
+    }
+    .order-banner strong { color: #C89A5A; font-size: 15px; }
+    .order-banner a {
+      color: #C89A5A;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-block;
+      margin-top: 4px;
+      border-bottom: 1px solid #C89A5A;
+      padding-bottom: 1px;
+    }
+
+    /* セクションタイトル */
+    .section-title {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .section-title::before, .section-title::after {
+      content: ''; flex: 1; height: 1px; background: #C89A5A;
+    }
+    .section-title span { font-size: 11px; letter-spacing: 3px; color: #8B6340; white-space: nowrap; }
+
+    /* メニューカード */
+    .menu-card {
+      background: #FDF6ED;
+      border-radius: 12px;
+      border: 1px solid #D4B896;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(44,26,14,0.06);
+      display: flex; align-items: stretch;
+    }
+    .menu-card .accent-bar { width: 5px; background: #C89A5A; flex-shrink: 0; }
+    .menu-card .content {
+      flex: 1; padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .menu-card .name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 17px; font-weight: 700; color: #2C1A0E; margin-bottom: 4px;
+    }
+    .menu-card .detail { font-size: 12px; color: #8B6340; }
+    .menu-card .price-box { text-align: right; flex-shrink: 0; }
+    .menu-card .price {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px; font-weight: 700; color: #5A3D20;
+    }
+    .menu-card .price-sub { font-size: 11px; color: #8B6340; }
+
+    /* フッター */
+    .footer {
+      background: #FDF6ED;
+      border-radius: 12px;
+      border: 1px solid #D4B896;
+      padding: 24px;
+      margin-top: 28px;
+      text-align: center;
+    }
+    .footer .shop-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px; color: #2C1A0E; font-weight: 700;
+      margin-bottom: 6px; letter-spacing: 2px;
+    }
+    .footer .school { font-size: 11px; color: #8B6340; margin-bottom: 14px; }
+    .footer .insta-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- ヘッダー -->
+    <div class="header">
+      <div class="logo-circle">
+        <svg width="44" height="36" viewBox="0 0 44 36" fill="none">
+          <path d="M2 32 L2 18 Q2 12 5 10 Q7 5 10 7 Q12 2 15 4 Q17 0 20 2 Q22 -1 24 2 Q27 0 29 4 Q32 2 35 7 Q38 5 40 10 Q43 12 43 18 L43 32 Z"
+            fill="#E8C47A" stroke="#C89A5A" stroke-width="1.2"/>
+          <rect x="2" y="32" width="41" height="4" fill="#C89A5A"/>
+          <line x1="10" y1="8" x2="10" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+          <line x1="20" y1="3" x2="20" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+          <line x1="29" y1="3" x2="29" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+          <line x1="38" y1="8" x2="38" y2="32" stroke="#C89A5A" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+        </svg>
+      </div>
+      <p class="sub">YOYAKU PAN MENU</p>
+      <h1>予約パンメニュー</h1>
+      <p class="tagline">あしたのパン　― 東近江市 ―</p>
+    </div>
+
+    <!-- 注文バナー -->
+    <div class="order-banner">
+      ご注文・お問い合わせは Instagram から<br>
+      <a href="https://www.instagram.com/asita_no_pan/" target="_blank">@asita_no_pan</a>
+    </div>
+
+    <!-- メニュー -->
+    <div class="section-title"><span>MENU</span></div>
+
+    <div class="menu-card">
+      <div class="accent-bar"></div>
+      <div class="content">
+        <div class="info">
+          <div class="name">山形食パン</div>
+          <div class="detail">1斤</div>
+        </div>
+        <div class="price-box">
+          <div class="price">¥800</div>
+          <div class="price-sub">税込</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="accent-bar"></div>
+      <div class="content">
+        <div class="info">
+          <div class="name">メロンパン</div>
+          <div class="detail">5個〜</div>
+        </div>
+        <div class="price-box">
+          <div class="price">¥1,000〜</div>
+          <div class="price-sub">税込</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+      <p class="shop-name">あしたのパン</p>
+      <p class="school">ジャパンベーキングスクール　師範　荒居洋子</p>
+      <a class="insta-link" href="https://www.instagram.com/asita_no_pan/" target="_blank">
+        Instagram でご注文 @asita_no_pan
+      </a>
+    </div>
+
+  </div>
+</body>
+</html>
