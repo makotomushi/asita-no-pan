@@ -38,15 +38,7 @@
     text-align: center;
     box-shadow: 0 2px 16px rgba(92,51,23,0.07);
   }
-  .bread-icon {
-    width: 64px; height: 64px;
-    background: var(--warm);
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    margin: 0 auto 16px;
-  }
+  .bread-icon { width:64px; height:64px; background:var(--warm); border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 16px; }
   .header-en { font-size:0.7rem; letter-spacing:0.35em; color:var(--gold); font-weight:300; margin-bottom:8px; }
   .header-title { font-family:'Shippori Mincho',serif; font-size:2rem; font-weight:600; color:var(--brown); letter-spacing:0.1em; margin-bottom:6px; }
   .header-sub { font-size:0.8rem; color:var(--muted); letter-spacing:0.2em; }
@@ -61,61 +53,63 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px 20px 18px;
     margin-bottom: 12px;
     box-shadow: 0 1px 8px rgba(92,51,23,0.05);
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
   }
-  .menu-name { font-family:'Shippori Mincho',serif; font-size:1.1rem; font-weight:600; color:var(--brown); margin-bottom:3px; }
-  .menu-note { font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
+  /* 写真エリア */
+  .menu-img {
+    width: 100px;
+    min-height: 100px;
+    flex-shrink: 0;
+    object-fit: cover;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+  .menu-img img {
+    width: 100px;
+    height: 100%;
+    min-height: 100px;
+    object-fit: cover;
+    display: block;
+  }
+  /* 本文エリア */
+  .menu-body { flex: 1; padding: 14px 14px 12px; display: flex; flex-direction: column; justify-content: space-between; }
+  .menu-name { font-family:'Shippori Mincho',serif; font-size:1rem; font-weight:600; color:var(--brown); margin-bottom:2px; }
+  .menu-note { font-size:0.72rem; color:var(--muted); margin-bottom:10px; }
   .menu-bottom { display:flex; align-items:center; justify-content:space-between; }
-  .qty-control { display:flex; align-items:center; gap:14px; }
-  .qty-btn {
-    width:34px; height:34px; border-radius:50%;
-    border:1.5px solid var(--gold); background:transparent; color:var(--gold);
-    font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    transition:all 0.2s; line-height:1;
-  }
+  .qty-control { display:flex; align-items:center; gap:10px; }
+  .qty-btn { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--gold); background:transparent; color:var(--gold); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; line-height:1; }
   .qty-btn:hover { background:var(--gold); color:white; }
   .qty-btn:active { transform:scale(0.92); }
-  .qty-num { font-family:'Shippori Mincho',serif; font-size:1.3rem; font-weight:600; color:var(--brown); min-width:24px; text-align:center; }
+  .qty-num { font-family:'Shippori Mincho',serif; font-size:1.2rem; font-weight:600; color:var(--brown); min-width:20px; text-align:center; }
   .menu-price { text-align:right; }
-  .price-num { font-family:'Shippori Mincho',serif; font-size:1.25rem; font-weight:600; color:var(--brown); }
-  .price-note { font-size:0.68rem; color:var(--muted); margin-top:2px; }
+  .price-num { font-family:'Shippori Mincho',serif; font-size:1.1rem; font-weight:600; color:var(--brown); }
+  .price-note { font-size:0.65rem; color:var(--muted); margin-top:1px; }
 
   /* フォーム */
   .form-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:12px; box-shadow:0 1px 8px rgba(92,51,23,0.05); }
   .form-group { margin-bottom:16px; }
   .form-group:last-child { margin-bottom:0; }
   .form-label { display:block; font-size:0.78rem; color:var(--muted); margin-bottom:6px; letter-spacing:0.05em; }
-  .form-input, .form-textarea {
-    width:100%; padding:10px 14px;
-    border:1px solid var(--border); border-radius:8px;
-    background:var(--cream); color:var(--text);
-    font-family:'Noto Serif JP',serif; font-size:0.95rem;
-    outline:none; transition:border-color 0.2s;
-  }
+  .form-input, .form-textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px; background:var(--cream); color:var(--text); font-family:'Noto Serif JP',serif; font-size:0.95rem; outline:none; transition:border-color 0.2s; }
   .form-input:focus, .form-textarea:focus { border-color:var(--gold); }
   .form-textarea { resize:vertical; min-height:80px; }
 
   /* 合計 */
-  .total-card {
-    background:var(--warm); border:1px solid var(--border); border-radius:12px;
-    padding:18px 20px; margin-bottom:16px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
+  .total-card { background:var(--warm); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
   .total-label { font-size:0.85rem; color:var(--muted); letter-spacing:0.1em; }
   .total-price { font-family:'Shippori Mincho',serif; font-size:1.5rem; font-weight:600; color:var(--brown); }
 
   /* ボタン */
-  .order-btn {
-    width:100%; padding:16px;
-    background:var(--brown); color:white; border:none; border-radius:12px;
-    font-family:'Shippori Mincho',serif; font-size:1rem; font-weight:600; letter-spacing:0.15em;
-    cursor:pointer; transition:all 0.2s; margin-bottom:10px;
-  }
+  .order-btn { width:100%; padding:16px; background:var(--brown); color:white; border:none; border-radius:12px; font-family:'Shippori Mincho',serif; font-size:1rem; font-weight:600; letter-spacing:0.15em; cursor:pointer; transition:all 0.2s; margin-bottom:10px; }
   .order-btn:hover { background:#7a4520; transform:translateY(-1px); }
 
-  /* 完了 */
   .success-box { display:none; background:#f0faf0; border:1px solid #b0d8b0; border-radius:12px; padding:20px; text-align:center; margin-top:12px; }
   .success-box.show { display:block; }
   .success-box h3 { color:#3a7a3a; font-size:1rem; margin-bottom:8px; }
@@ -183,15 +177,17 @@
 </div>
 
 <script>
+// img: GitHubにアップロードした画像ファイル名
 const MENU = [
-  { name: 'キャロットブレッド',    note: '1本',              price: 900  },
-  { name: 'ココアチョコブレッド',  note: '1本',              price: 900  },
-  { name: '四山食パン チョコ',     note: '1斤',              price: 1150 },
-  { name: '四山食パン レーズン',   note: '1斤',              price: 890  },
-  { name: 'いもいも食パン',        note: '1斤',              price: 800  },
-  { name: 'グラハムブレッド',      note: '1個',              price: 920  },
-  { name: 'ナンテール',            note: 'バター生地込み・1本', price: 850 },
-  { name: 'ヨーグルトブレッド',    note: '1斤',              price: 800  },
+  { name: '山形食パン',            note: '1斤',                 price: 700,  img: 'yamagata.jpg' },
+  { name: 'キャロットブレッド',    note: '1本',                 price: 900,  img: 'carrot.jpg' },
+  { name: 'ココアチョコブレッド',  note: '1本',                 price: 900,  img: 'cocoa.jpg' },
+  { name: '四山食パン チョコ',     note: '1斤',                 price: 1150, img: 'shiyama-choco.jpg' },
+  { name: '四山食パン レーズン',   note: '1斤',                 price: 890,  img: 'shiyama-raisin.jpg' },
+  { name: 'いもいも食パン',        note: '1斤',                 price: 800,  img: 'imo.jpg' },
+  { name: 'グラハムブレッド',      note: '1個',                 price: 920,  img: 'graham.jpg' },
+  { name: 'ナンテール',            note: 'バター生地込み・1本', price: 850,  img: 'nanterre.jpg' },
+  { name: 'ヨーグルトブレッド',    note: '1斤',                 price: 800,  img: 'yogurt.jpg' },
 ];
 
 const qty = new Array(MENU.length).fill(0);
@@ -199,17 +195,24 @@ const qty = new Array(MENU.length).fill(0);
 function renderMenu() {
   document.getElementById('menu-list').innerHTML = MENU.map((item, i) => `
     <div class="menu-card">
-      <div class="menu-name">${item.name}</div>
-      <div class="menu-note">${item.note}</div>
-      <div class="menu-bottom">
-        <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
-          <div class="qty-num" id="qty-${i}">0</div>
-          <button class="qty-btn" onclick="changeQty(${i},1)">＋</button>
+      <div class="menu-img">
+        <img src="${item.img}" alt="${item.name}" onerror="this.parentElement.innerHTML='🍞'">
+      </div>
+      <div class="menu-body">
+        <div>
+          <div class="menu-name">${item.name}</div>
+          <div class="menu-note">${item.note}</div>
         </div>
-        <div class="menu-price">
-          <div class="price-num">¥${item.price.toLocaleString()}</div>
-          <div class="price-note">税込 / ${item.note}</div>
+        <div class="menu-bottom">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+            <div class="qty-num" id="qty-${i}">0</div>
+            <button class="qty-btn" onclick="changeQty(${i},1)">＋</button>
+          </div>
+          <div class="menu-price">
+            <div class="price-num">¥${item.price.toLocaleString()}</div>
+            <div class="price-note">税込 / ${item.note}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -246,7 +249,7 @@ function submitOrder() {
     '受け取り希望日：' + dateStr,
     '',
     '【ご注文内容】',
-    ...MENU.filter((_, i) => qty[i] > 0).map((item, _, arr) => {
+    ...MENU.filter((_, i) => qty[i] > 0).map(item => {
       const i = MENU.indexOf(item);
       return '・' + item.name + '　×' + qty[i] + '　¥' + (item.price * qty[i]).toLocaleString();
     }),
