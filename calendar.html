@@ -1,280 +1,230 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>レッスンカレンダー｜あしたのパン</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap');
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background-color:#F5E6C8;
-      background-image:radial-gradient(#D4B896 1px, transparent 1px);
-      background-size:20px 20px;
-      font-family:'Noto Sans JP',sans-serif;
-      min-height:100vh;
-      padding:32px 16px;
-    }
-    .wrapper { max-width:680px; margin:0 auto; }
-
-    /* ヘッダー */
-    .header {
-      background:#FDF6ED; border-radius:16px;
-      border:1.5px solid #D4B896; padding:24px;
-      text-align:center; margin-bottom:20px;
-      box-shadow:0 4px 16px rgba(44,26,14,0.08);
-    }
-    .header .sub { font-size:11px; letter-spacing:3px; color:#8B6340; margin-bottom:5px; }
-    .header h1 { font-family:'Noto Serif JP',serif; font-size:24px; font-weight:700; color:#2C1A0E; letter-spacing:3px; margin-bottom:5px; }
-    .header .tagline { font-size:12px; color:#8B6340; }
-
-    /* 月ナビ */
-    .month-nav {
-      display:flex; align-items:center; justify-content:space-between;
-      background:#FDF6ED; border-radius:12px;
-      border:1px solid #D4B896; padding:14px 20px;
-      margin-bottom:16px;
-    }
-    .month-nav button {
-      background:none; border:1.5px solid #C89A5A;
-      border-radius:50%; width:36px; height:36px;
-      color:#8B6340; font-size:16px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .month-nav button:active { background:#F5E6C8; }
-    .month-title { font-family:'Noto Serif JP',serif; font-size:20px; font-weight:700; color:#2C1A0E; }
-
-    /* カレンダー */
-    .calendar {
-      background:#FDF6ED; border-radius:12px;
-      border:1px solid #D4B896; overflow:hidden;
-      box-shadow:0 2px 8px rgba(44,26,14,0.06);
-      margin-bottom:20px;
-    }
-    .cal-header {
-      display:grid; grid-template-columns:repeat(7,1fr);
-      background:#2C1A0E;
-    }
-    .cal-header div {
-      text-align:center; padding:10px 4px;
-      font-size:11px; letter-spacing:1px; color:#C89A5A;
-    }
-    .cal-header div:first-child { color:#e88; }
-    .cal-header div:last-child { color:#88c; }
-
-    .cal-body {
-      display:grid; grid-template-columns:repeat(7,1fr);
-    }
-    .cal-cell {
-      min-height:72px; border-right:1px solid #EEE5D5;
-      border-bottom:1px solid #EEE5D5; padding:6px 4px 4px;
-      position:relative; cursor:default;
-    }
-    .cal-cell:nth-child(7n) { border-right:none; }
-    .cal-cell.empty { background:#FAF3E8; }
-    .cal-cell.sunday .day-num { color:#c55; }
-    .cal-cell.saturday .day-num { color:#55c; }
-    .cal-cell.today { background:#FFF8EC; }
-    .cal-cell.today .day-num {
-      background:#C89A5A; color:white;
-      border-radius:50%; width:22px; height:22px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px;
-    }
-    .day-num { font-size:12px; font-weight:500; color:#2C1A0E; margin-bottom:4px; }
-
-    /* 予約バッジ */
-    .badge {
-      border-radius:4px; padding:2px 5px;
-      font-size:9px; font-weight:700;
-      margin-top:2px; line-height:1.4;
-      display:block;
-    }
-    .badge.open { background:#E8F5E9; color:#2E7D32; border:1px solid #A5D6A7; }
-    .badge.full { background:#FFEBEE; color:#C62828; border:1px solid #EF9A9A; }
-    .badge.name { background:#FFF8E1; color:#5A3D20; border:1px solid #FFE082; font-size:8px; }
-
-    /* 凡例 */
-    .legend {
-      background:#FDF6ED; border-radius:12px;
-      border:1px solid #D4B896; padding:16px 20px;
-      display:flex; gap:16px; flex-wrap:wrap;
-      margin-bottom:20px;
-    }
-    .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#5A3D20; }
-    .legend-dot { width:12px; height:12px; border-radius:3px; }
-
-    /* お問い合わせ */
-    .contact {
-      background:#2C1A0E; border-radius:12px;
-      padding:18px 20px; text-align:center; color:#F5E6C8;
-    }
-    .contact p { font-size:12px; line-height:2; }
-    .contact a {
-      color:#C89A5A; font-weight:700; font-size:14px;
-      text-decoration:none; border-bottom:1px solid #C89A5A;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>予約パンメニュー｜あしたのパン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f7f0e6;
+    --warm: #ede0cc;
+    --card: #fffdf8;
+    --brown: #5c3317;
+    --gold: #b8832a;
+    --muted: #9a7a5a;
+    --border: rgba(184,131,42,0.2);
+    --text: #3a2310;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background-color: var(--cream);
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+  .container { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+  .header-card { background:var(--card); border:1px solid var(--border); border-radius:16px; margin:24px 0 20px; padding:32px 24px 28px; text-align:center; box-shadow:0 2px 16px rgba(92,51,23,0.07); }
+  .bread-icon { width:64px; height:64px; background:var(--warm); border-radius:50%; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 16px; }
+  .header-en { font-size:0.7rem; letter-spacing:0.35em; color:var(--gold); font-weight:300; margin-bottom:8px; }
+  .header-title { font-family:'Shippori Mincho',serif; font-size:2rem; font-weight:600; color:var(--brown); letter-spacing:0.1em; margin-bottom:6px; }
+  .header-sub { font-size:0.8rem; color:var(--muted); letter-spacing:0.2em; }
+  .section-label { display:flex; align-items:center; gap:12px; margin:24px 0 12px; }
+  .section-label::before,.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+  .section-label span { font-size:0.68rem; letter-spacing:0.3em; color:var(--gold); }
+  .menu-card { background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:12px; box-shadow:0 1px 8px rgba(92,51,23,0.05); overflow:hidden; display:flex; align-items:stretch; }
+  .menu-img { width:100px; min-height:100px; flex-shrink:0; background:var(--warm); display:flex; align-items:center; justify-content:center; font-size:2rem; }
+  .menu-img img { width:100px; height:100%; min-height:100px; object-fit:cover; display:block; }
+  .menu-body { flex:1; padding:14px 14px 12px; display:flex; flex-direction:column; justify-content:space-between; }
+  .menu-name { font-family:'Shippori Mincho',serif; font-size:1rem; font-weight:600; color:var(--brown); margin-bottom:2px; }
+  .menu-note { font-size:0.72rem; color:var(--muted); margin-bottom:10px; }
+  .menu-bottom { display:flex; align-items:center; justify-content:space-between; }
+  .qty-control { display:flex; align-items:center; gap:10px; }
+  .qty-btn { width:30px; height:30px; border-radius:50%; border:1.5px solid var(--gold); background:transparent; color:var(--gold); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; line-height:1; }
+  .qty-btn:hover { background:var(--gold); color:white; }
+  .qty-btn:active { transform:scale(0.92); }
+  .qty-num { font-family:'Shippori Mincho',serif; font-size:1.2rem; font-weight:600; color:var(--brown); min-width:20px; text-align:center; }
+  .menu-price { text-align:right; }
+  .price-num { font-family:'Shippori Mincho',serif; font-size:1.1rem; font-weight:600; color:var(--brown); }
+  .price-note { font-size:0.65rem; color:var(--muted); margin-top:1px; }
+  .form-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:12px; box-shadow:0 1px 8px rgba(92,51,23,0.05); }
+  .form-group { margin-bottom:16px; }
+  .form-group:last-child { margin-bottom:0; }
+  .form-label { display:block; font-size:0.78rem; color:var(--muted); margin-bottom:6px; letter-spacing:0.05em; }
+  .form-input, .form-textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px; background:var(--cream); color:var(--text); font-family:'Noto Serif JP',serif; font-size:0.95rem; outline:none; transition:border-color 0.2s; }
+  .form-input:focus, .form-textarea:focus { border-color:var(--gold); }
+  .form-textarea { resize:vertical; min-height:80px; }
+  .total-card { background:var(--warm); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; }
+  .total-label { font-size:0.85rem; color:var(--muted); letter-spacing:0.1em; }
+  .total-price { font-family:'Shippori Mincho',serif; font-size:1.5rem; font-weight:600; color:var(--brown); }
+  .order-btn { width:100%; padding:16px; background:var(--brown); color:white; border:none; border-radius:12px; font-family:'Shippori Mincho',serif; font-size:1rem; font-weight:600; letter-spacing:0.15em; cursor:pointer; transition:all 0.2s; margin-bottom:10px; }
+  .order-btn:hover { background:#7a4520; transform:translateY(-1px); }
+  .success-box { display:none; background:#f0faf0; border:1px solid #b0d8b0; border-radius:12px; padding:20px; text-align:center; margin-top:12px; }
+  .success-box.show { display:block; }
+  .success-box h3 { color:#3a7a3a; font-size:1rem; margin-bottom:8px; }
+  .success-box p { font-size:0.82rem; color:#5a8a5a; line-height:1.8; }
+  .copy-area { display:none; background:var(--cream); border:1px dashed var(--gold); border-radius:10px; padding:16px; margin-top:14px; font-size:0.82rem; color:var(--text); line-height:1.9; white-space:pre-wrap; word-break:break-all; }
+  .copy-area.show { display:block; }
+  .copy-btn { display:none; width:100%; margin-top:10px; padding:12px; background:#e8f4e8; color:#3a7a3a; border:1px solid #b0d8b0; border-radius:8px; font-family:'Noto Serif JP',serif; font-size:0.88rem; cursor:pointer; letter-spacing:0.1em; transition:background 0.2s; }
+  .copy-btn:hover { background:#d0ecd0; }
+  .instagram-btn { display:none; width:100%; margin-top:8px; padding:12px; background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:white; border:none; border-radius:8px; font-family:'Noto Serif JP',serif; font-size:0.88rem; cursor:pointer; letter-spacing:0.1em; }
+  .instagram-btn:hover { opacity:0.9; }
+  .instagram-btn.show { display:block; }
+  .notice { font-size:0.72rem; color:var(--muted); text-align:center; margin-top:10px; line-height:1.8; }
+</style>
 </head>
 <body>
-<div class="wrapper">
-
-  <div class="header">
-    <p class="sub">LESSON CALENDAR</p>
-    <h1>レッスンカレンダー</h1>
-    <p class="tagline">あしたのパン　パン教室</p>
+<div class="container">
+  <div class="header-card">
+    <div class="bread-icon">🍞</div>
+    <p class="header-en">YOYAKU PAN MENU</p>
+    <h1 class="header-title">予約パンメニュー</h1>
+    <p class="header-sub">あしたのパン　— 東近江市 —</p>
   </div>
 
-  <div class="month-nav">
-    <button onclick="changeMonth(-1)">◀</button>
-    <div class="month-title" id="month-title"></div>
-    <button onclick="changeMonth(1)">▶</button>
-  </div>
+  <div class="section-label"><span>MENU</span></div>
+  <div id="menu-list"></div>
 
-  <div class="calendar">
-    <div class="cal-header">
-      <div>日</div><div>月</div><div>火</div><div>水</div>
-      <div>木</div><div>金</div><div>土</div>
+  <div class="section-label"><span>ORDER</span></div>
+  <div class="form-card">
+    <div class="form-group">
+      <label class="form-label">お名前 *</label>
+      <input class="form-input" id="name" type="text" placeholder="山田 花子">
     </div>
-    <div class="cal-body" id="cal-body"></div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-dot" style="background:#E8F5E9;border:1px solid #A5D6A7;"></div>
-      空きあり
+    <div class="form-group">
+      <label class="form-label">受け取り希望日 *</label>
+      <input class="form-input" id="pickup-date" type="date">
     </div>
-    <div class="legend-item">
-      <div class="legend-dot" style="background:#FFEBEE;border:1px solid #EF9A9A;"></div>
-      満席
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot" style="background:#FFF8E1;border:1px solid #FFE082;"></div>
-      予約者名
+    <div class="form-group">
+      <label class="form-label">ご要望・アレルギーなど</label>
+      <textarea class="form-textarea" id="note" placeholder="お気軽にどうぞ"></textarea>
     </div>
   </div>
 
-  <div class="contact">
-    <p>ご予約・お問い合わせは Instagram から<br>
-    <a href="https://www.instagram.com/asita_no_pan/" target="_blank">@asita_no_pan</a></p>
+  <div class="total-card">
+    <div class="total-label">合計金額（税込）</div>
+    <div class="total-price" id="total-price">¥0</div>
   </div>
 
+  <button class="order-btn" onclick="submitOrder()">📩 Instagramへ注文内容を送る</button>
+
+  <div class="success-box" id="success-box">
+    <h3>✅ 注文内容を作成しました！</h3>
+    <p>下のテキストをコピーして<br>あしたのパンのInstagramへDMを送ってください。</p>
+  </div>
+  <div class="copy-area" id="copy-area"></div>
+  <button class="copy-btn" id="copy-btn" onclick="copyText()">📋 コピーする</button>
+  <button class="instagram-btn" id="instagram-btn" onclick="openInstagram()">📸 Instagramを開く</button>
+  <p class="notice">※ このフォームはInstagramのDM送信を補助するものです。<br>注文確定はショップからの返信をもってお知らせします。</p>
 </div>
 
 <script>
-  let currentYear, currentMonth;
+const MENU = [
+  { name: '山形食パン',            note: '1斤',                 price: 700,  img: 'yamagata.jpg' },
+  { name: 'キャロットブレッド',    note: '1本',                 price: 900,  img: 'carrot.jpg' },
+  { name: 'ココアチョコブレッド',  note: '1本',                 price: 900,  img: 'cocoa.jpg' },
+  { name: '四山食パン チョコ',     note: '1斤',                 price: 1150, img: 'shiyama-choco.jpg' },
+  { name: '四山食パン レーズン',   note: '1斤',                 price: 890,  img: 'shiyama-raisin.jpg' },
+  { name: 'いもいも食パン',        note: '1斤',                 price: 800,  img: 'imo.jpg' },
+  { name: 'グラハムブレッド',      note: '1個',                 price: 920,  img: 'graham.jpg' },
+  { name: 'ナンテール',            note: 'バター生地込み・1本', price: 850,  img: 'nanterre.jpg' },
+  { name: 'ヨーグルトブレッド',    note: '1斤',                 price: 800,  img: 'yogurt.jpg' },
+];
 
-  // 予約データを読み込む
-  async function loadData() {
-    try {
-      const res = await fetch('reservations.json?t=' + Date.now());
-      return await res.json();
-    } catch(e) {
-      return { lessons: [] };
-    }
-  }
+const qty = new Array(MENU.length).fill(0);
 
-  function changeMonth(delta) {
-    currentMonth += delta;
-    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
-    renderCalendar();
-  }
+function renderMenu() {
+  document.getElementById('menu-list').innerHTML = MENU.map((item, i) => `
+    <div class="menu-card">
+      <div class="menu-img">
+        <img src="${item.img}" alt="${item.name}" onerror="this.parentElement.innerHTML='🍞'">
+      </div>
+      <div class="menu-body">
+        <div>
+          <div class="menu-name">${item.name}</div>
+          <div class="menu-note">${item.note}</div>
+        </div>
+        <div class="menu-bottom">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+            <div class="qty-num" id="qty-${i}">0</div>
+            <button class="qty-btn" onclick="changeQty(${i},1)">＋</button>
+          </div>
+          <div class="menu-price">
+            <div class="price-num">¥${item.price.toLocaleString()}</div>
+            <div class="price-note">税込 / ${item.note}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
 
-  async function renderCalendar() {
-    const data = await loadData();
-    const lessons = data.lessons || [];
+function changeQty(i, delta) {
+  qty[i] = Math.max(0, qty[i] + delta);
+  document.getElementById('qty-' + i).textContent = qty[i];
+  updateTotal();
+}
 
-    const title = `${currentYear}年 ${currentMonth + 1}月`;
-    document.getElementById('month-title').textContent = title;
+function updateTotal() {
+  const total = MENU.reduce((s, item, i) => s + item.price * qty[i], 0);
+  document.getElementById('total-price').textContent = '¥' + total.toLocaleString();
+}
 
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const today = new Date();
+function submitOrder() {
+  const name = document.getElementById('name').value.trim();
+  const date = document.getElementById('pickup-date').value;
+  const note = document.getElementById('note').value.trim();
+  if (!name) { alert('お名前を入力してください'); return; }
+  if (!date) { alert('受け取り希望日を選択してください'); return; }
+  const ordered = MENU.filter((_, i) => qty[i] > 0);
+  if (ordered.length === 0) { alert('商品を1つ以上選択してください'); return; }
 
-    const body = document.getElementById('cal-body');
-    body.innerHTML = '';
+  const total = MENU.reduce((s, item, i) => s + item.price * qty[i], 0);
+  const dateStr = new Date(date + 'T00:00:00').toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric' });
 
-    // 空白セル
-    for (let i = 0; i < firstDay; i++) {
-      const cell = document.createElement('div');
-      cell.className = 'cal-cell empty';
-      body.appendChild(cell);
-    }
+  const lines = [
+    '【パン予約のご注文】',
+    '',
+    'お名前：' + name,
+    '受け取り希望日：' + dateStr,
+    '',
+    '【ご注文内容】',
+    ...MENU.filter((_, i) => qty[i] > 0).map(item => {
+      const i = MENU.indexOf(item);
+      return '・' + item.name + '　×' + qty[i] + '　¥' + (item.price * qty[i]).toLocaleString();
+    }),
+    '',
+    '合計：¥' + total.toLocaleString() + '（税込）',
+    ...(note ? ['', 'ご要望：' + note] : []),
+    '',
+    'よろしくお願いいたします🍞',
+  ].join('\n');
 
-    // 日付セル
-    for (let d = 1; d <= daysInMonth; d++) {
-      const cell = document.createElement('div');
-      const dow = (firstDay + d - 1) % 7;
-      let cls = 'cal-cell';
-      if (dow === 0) cls += ' sunday';
-      if (dow === 6) cls += ' saturday';
-      if (d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
-        cls += ' today';
-      }
-      cell.className = cls;
+  document.getElementById('copy-area').textContent = lines;
+  document.getElementById('copy-area').classList.add('show');
+  document.getElementById('success-box').classList.add('show');
+  document.getElementById('copy-btn').style.display = 'block';
+  document.getElementById('instagram-btn').classList.add('show');
+  document.getElementById('success-box').scrollIntoView({ behavior:'smooth', block:'start' });
+}
 
-      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+function copyText() {
+  navigator.clipboard.writeText(document.getElementById('copy-area').textContent).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ コピーしました！';
+    setTimeout(() => { btn.textContent = '📋 コピーする'; }, 2000);
+  });
+}
 
-      // 日付番号
-      const dayNum = document.createElement('div');
-      dayNum.className = 'day-num';
-      dayNum.textContent = d;
-      cell.appendChild(dayNum);
+function openInstagram() {
+  window.open('https://www.instagram.com/direct/inbox/', '_blank');
+}
 
-      // その日のレッスン情報
-      const lesson = lessons.find(l => l.date === dateStr);
-      if (lesson) {
-        const badge = document.createElement('span');
-        if (lesson.status === 'open') {
-          badge.className = 'badge open';
-          badge.textContent = '◎ 空きあり';
-        } else {
-          badge.className = 'badge full';
-          badge.textContent = '× 満席';
-        }
-        cell.appendChild(badge);
-
-        // 予約者名
-        if (lesson.names && lesson.names.length > 0) {
-          lesson.names.forEach(name => {
-            const nb = document.createElement('span');
-            nb.className = 'badge name';
-            nb.textContent = name;
-            cell.appendChild(nb);
-          });
-        }
-      }
-
-      body.appendChild(cell);
-    }
-  }
-
-  // 初期化
-  const now = new Date();
-  currentYear = now.getFullYear();
-  currentMonth = now.getMonth();
-  renderCalendar();
+renderMenu();
 </script>
 </body>
 </html>
-
-{
-  "lessons": [
-    {
-      "date": "2026-05-10",
-      "status": "open",
-      "names": ["山田さん"]
-    },
-    {
-      "date": "2026-05-17",
-      "status": "full",
-      "names": ["田中さん", "鈴木さん", "佐藤さん"]
-    },
-    {
-      "date": "2026-05-24",
-      "status": "open",
-      "names": []
-    }
-  ]
-}
